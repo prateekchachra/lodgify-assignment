@@ -1,7 +1,5 @@
 import React, {
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -38,7 +36,7 @@ export const LodgifyProgressBar = ({ progress, style }: ProgressBarProps) => {
       setBarWidth(
         barRef.current?.offsetWidth ? barRef.current?.offsetWidth : 0
       ),
-    [barRef.current, progress]
+    [barRef, progress]
   );
 
   return (
@@ -71,7 +69,7 @@ export const LodgifyProgressBar = ({ progress, style }: ProgressBarProps) => {
               left:
                 progress === 0
                   ? "8px"
-                  : `${(progress * barWidth) / 100 - 32}px`,
+                  : `${(progress * barWidth) / 100 - 36}px`,
               bottom: 0,
               position: "absolute",
               display: "flex",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Task, TaskCheckedFunction } from "../../utils/types";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,7 @@ type TaskCheckboxProps = {
   onTaskChecked: TaskCheckedFunction;
 };
 
-const TaskCheckboxWithoutMemoize = ({
+export const TaskCheckbox = ({
   task,
   index,
   groupIndex,
@@ -22,8 +22,13 @@ const TaskCheckboxWithoutMemoize = ({
     event.stopPropagation();
     onTaskChecked(checked, index, groupIndex);
   };
-
+  
   const { description, checked } = task;
+
+  const [isChecked, setIsChecked] = useState(checked);
+
+  useEffect(() => setIsChecked(checked), [task]);
+
   return (
     <Box
       sx={{
@@ -34,7 +39,7 @@ const TaskCheckboxWithoutMemoize = ({
     >
       <Checkbox
         data-testid="checkboxtest"
-        checked={checked}
+        checked={isChecked}
         sx={{
           color: "#cdcdcd",
           "&.Mui-checked": {
@@ -51,8 +56,3 @@ const TaskCheckboxWithoutMemoize = ({
     </Box>
   );
 };
-
-export const TaskCheckbox = React.memo(
-  TaskCheckboxWithoutMemoize,
-  (prevProps, nextProps) => nextProps.task.checked === prevProps.task.checked
-);

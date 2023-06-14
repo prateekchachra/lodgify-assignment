@@ -12,7 +12,6 @@ function App() {
   const [groups, setGroups] = useState<Group[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const [expandedIndex, setExpandedIndex] = React.useState<number>(-1);
-
   const totalProgress = useRef(calculateTotalProgress(groups));
 
   useEffect(() => {
@@ -47,7 +46,7 @@ function App() {
       updatedGroup,
       ...groups.slice(groupIndex + 1, groups.length),
     ];
-    setGroups([...updatedGroups]);
+    setGroups(updatedGroups);
     setProgress(calculateProgress(updatedGroups, totalProgress.current));
   };
 
